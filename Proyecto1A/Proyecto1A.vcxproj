@@ -130,11 +130,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="oneFloorBasic.cpp" />
     <ClCompile Include="oneFloorAdvanced.cpp" />
+    <ClCompile Include="parkingTower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="car.h" />
     <ClInclude Include="oneFloorAdvanced.h" />
     <ClInclude Include="oneFloorBasic.h" />
+    <ClInclude Include="parkingTower.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

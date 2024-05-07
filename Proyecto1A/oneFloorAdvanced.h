@@ -18,10 +18,9 @@ typedef struct AdvancedParkingNode {
 }*PtrTAdvancedParkingNode;
 
 
-int generateRandom(int MIN, int MAX);
 PtrTAdvancedParkingNode createAdvancedParkingNode(int slotNumber);
 void addParkingNode(PtrTAdvancedParkingNode& Parking, PtrTAdvancedParkingNode& newSpot);
 void carList(PtrTAdvancedParkingNode& Parking);
 void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar);
 void initializeParking(PtrTAdvancedParkingNode& Parking);
-void oneFloor();
+void oneFloorAdvanced();

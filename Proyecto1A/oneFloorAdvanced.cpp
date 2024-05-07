@@ -3,7 +3,7 @@
 PtrTAdvancedParkingNode newSpace;
 PtrTAdvancedParkingNode Parking;
 
-int generateRandom(int MIN, int MAX) {
+int generateRandomA(int MIN, int MAX) {
     random_device rd;
     mt19937 gen(rd());    //Creates a randon number for a new code to take out a car or license plate
     uniform_int_distribution<> dis(MIN, MAX);
@@ -36,7 +36,7 @@ void addParkingNode(PtrTAdvancedParkingNode& Parking, PtrTAdvancedParkingNode& n
     Parking = newSpot;
 }
 
-void carList(PtrTAdvancedParkingNode& Parking) //only used for testing, TODO: FIX LOGIC FOR BOTH CARS IN SPACE
+void carList(PtrTAdvancedParkingNode& Parking) //only used for testing, 
 {
     PtrTAdvancedParkingNode Aux;
     Aux = Parking;
@@ -58,11 +58,11 @@ void carList(PtrTAdvancedParkingNode& Parking) //only used for testing, TODO: FI
     cout << endl;
 }
 
-void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar) { //TODO: FIX LOGIC FOR BOTH CARS IN SPACE
+void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar) { 
 
-    newCar->licensePlate = generateRandom(100000, 999999);
-    newCar->weight = generateRandom(1, 3);                    //Random attributes to each car
-    newCar->size = generateRandom(1, 5);
+    newCar->licensePlate = generateRandomA(100000, 999999);
+    newCar->weight = generateRandomA(1, 3);                    //Random attributes to each car
+    newCar->size = generateRandomA(1, 5);
     PtrTAdvancedParkingNode Aux;
     Aux = Parking;
     bool addedFlag = false; // Cambiado a false
@@ -73,7 +73,7 @@ void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar) { //TODO: FI
             Aux->lowerCar.size = newCar->size;
             Aux->lowerCar.weight = newCar->weight;
             Aux->isLowerOccupied = true; // Cambiado a true
-            int randomCode = generateRandom(100000, 999999);
+            int randomCode = generateRandomA(100000, 999999);
             Aux->lowerReturnCode = randomCode;
             cout << "Se añadio un carro en el espacio " << Aux->parkingSpot << " con el codigo de retorno " << randomCode << endl;
             addedFlag = true; // Cambiado a true
@@ -84,7 +84,7 @@ void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar) { //TODO: FI
             Aux->upperCar.size = newCar->size;
             Aux->upperCar.weight = newCar->weight;
             Aux->isUpperOccupied = true; // Cambiado a true
-            int randomCode = generateRandom(100000, 999999);
+            int randomCode = generateRandomA(100000, 999999);
             Aux->upperReturnCode = randomCode;
             cout << "Se añadio un carro en el espacio " << Aux->parkingSpot << " con el codigo de retorno " << randomCode << endl;
             addedFlag = true; // Cambiado a true
@@ -95,11 +95,10 @@ void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar) { //TODO: FI
     if (addedFlag == false) { cout << "El parque esta lleno" << endl; } // Cambiado == false
 }
 
-void startSimulation() {
+void startAdvancedSimulation() {
 
     while (true) {
-        int randomChance = generateRandom(1, 1); //Chance treshold
-        cout << randomChance << endl;
+        int randomChance = generateRandomA(1, 1); //Chance treshold
         if (randomChance == 1) {
             addCarToParking(Parking, new(car));
 
@@ -123,10 +122,10 @@ void userInput() {
     }
 }
 
-void oneFloor() {
+void oneFloorAdvanced() {
     Parking = NULL;
     initializeParking(Parking);
-    thread simThread(startSimulation);
+    thread simThread(startAdvancedSimulation);
     thread userInputThread(userInput);
 
     simThread.join();

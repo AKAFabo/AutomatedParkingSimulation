@@ -3,7 +3,7 @@
 PtrTBasicParkingNode newSpace;
 PtrTBasicParkingNode Parking;
 
-int generateRandom(int MIN, int MAX) {
+int generateRandomB(int MIN, int MAX) {
     random_device rd;
     mt19937 gen(rd());    //Creates a randon number for a new code to take out a car
     uniform_int_distribution<> dis(MIN, MAX);
@@ -54,9 +54,9 @@ void carList(PtrTBasicParkingNode& Parking) //only used for testing
 
 void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
 
-    newCar->licensePlate = generateRandom(100000, 999999);
-    newCar->weight = generateRandom(1, 3);                    //Random attributes to each car
-    newCar->size = generateRandom(1, 5);
+    newCar->licensePlate = generateRandomB(100000, 999999);
+    newCar->weight = generateRandomB(1, 3);                    //Random attributes to each car
+    newCar->size = generateRandomB(1, 5);
     PtrTBasicParkingNode Aux;
     Aux = Parking;
     bool addedFlag = false; // Cambiado a false
@@ -67,7 +67,7 @@ void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
             Aux->carInSpot.size = newCar->size;
             Aux->carInSpot.weight = newCar->weight;
             Aux->isOccupied = true; // Cambiado a true
-            int randomCode = generateRandom(100000, 999999);
+            int randomCode = generateRandomB(100000, 999999);
             Aux->returnCode = randomCode;
             cout << "Se añadio un carro en el espacio " << Aux->parkingSpot << " con el codigo de retorno " << Aux->returnCode << endl;
             addedFlag = true; // Cambiado a true
@@ -78,11 +78,10 @@ void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
     if (addedFlag == false) { cout << "El parque esta lleno" << endl; } // Cambiado == false
 }
 
-void startSimulation() {
+void startBasicSimulation() {
 
     while (true) {
-        int randomChance = generateRandom(1, 1); //Chance treshold
-        cout << randomChance << endl;
+        int randomChance = generateRandomB(1, 1); //Chance treshold
         if (randomChance == 1) {
             addCarToParking(Parking, new(car));
 
@@ -91,7 +90,7 @@ void startSimulation() {
     }
 }
 
-void userInput() {
+void userInputB() {
     char choice;
     while (true) {
         cin >> choice;
@@ -106,11 +105,11 @@ void userInput() {
     }
 }
 
-void oneFloor() {
+void oneFloorBasic() {
     Parking = NULL;
     initializeParking(Parking);
-    thread simThread(startSimulation);
-    thread userInputThread(userInput);
+    thread simThread(startBasicSimulation);
+    thread userInputThread(userInputB);
 
     simThread.join();
     userInputThread.join();
