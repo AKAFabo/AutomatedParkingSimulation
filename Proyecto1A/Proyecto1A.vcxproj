@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="oneFloor.cpp" />
+    <ClCompile Include="oneFloorBasic.cpp" />
+    <ClCompile Include="oneFloorAdvanced.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="car.h" />
-    <ClInclude Include="oneFloor.h" />
+    <ClInclude Include="oneFloorAdvanced.h" />
+    <ClInclude Include="oneFloorBasic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

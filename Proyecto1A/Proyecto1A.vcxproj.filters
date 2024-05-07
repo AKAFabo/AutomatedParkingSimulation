@@ -18,15 +18,21 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="oneFloor.cpp">
+    <ClCompile Include="oneFloorBasic.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="oneFloorAdvanced.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="oneFloor.h">
+    <ClInclude Include="oneFloorBasic.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="car.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="oneFloorAdvanced.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

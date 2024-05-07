@@ -1,7 +1,7 @@
-#include "oneFloor.h"
+#include "oneFloorBasic.h"
 
-PtrTParkingNode newSpace;
-PtrTParkingNode Parking;
+PtrTBasicParkingNode newSpace;
+PtrTBasicParkingNode Parking;
 
 int generateRandom(int MIN, int MAX) {
     random_device rd;
@@ -11,25 +11,34 @@ int generateRandom(int MIN, int MAX) {
     return randomCode;
 }
 
-PtrTParkingNode createParkingNode(int slotNumber)
+PtrTBasicParkingNode createBasicParkingNode(int slotNumber)
 {
-    PtrTParkingNode slot = new(ParkingNode);
+    PtrTBasicParkingNode slot = new(BasicParkingNode);
     slot->parkingSpot = slotNumber;
     slot->isOccupied = false;
     slot->Next = NULL;
     int returnCode = 0;
     return slot;
 }
+void initializeParking(PtrTBasicParkingNode& Parking) {
+    static int MAX_SIZE = 25;
+    PtrTBasicParkingNode newSpace;
+    for (int i = 0; i <= MAX_SIZE; i++)
+    {
+        newSpace = createBasicParkingNode(i);
+        addParkingNode(Parking, newSpace);
+    }
+}
 
-void addParkingNode(PtrTParkingNode& Parking, PtrTParkingNode& newSpot)
+void addParkingNode(PtrTBasicParkingNode& Parking, PtrTBasicParkingNode& newSpot)
 {
     newSpot->Next = Parking;
     Parking = newSpot;
 }
 
-void carList(PtrTParkingNode& Parking)
+void carList(PtrTBasicParkingNode& Parking) //only used for testing
 {
-    PtrTParkingNode Aux;
+    PtrTBasicParkingNode Aux;
     Aux = Parking;
     while (Aux != NULL)
     {
@@ -43,12 +52,12 @@ void carList(PtrTParkingNode& Parking)
     cout << endl;
 }
 
-void addCarToParking(PtrTParkingNode& Parking, car* newCar) {
+void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
 
     newCar->licensePlate = generateRandom(100000, 999999);
     newCar->weight = generateRandom(1, 3);                    //Random attributes to each car
     newCar->size = generateRandom(1, 5);
-    PtrTParkingNode Aux;
+    PtrTBasicParkingNode Aux;
     Aux = Parking;
     bool addedFlag = false; // Cambiado a false
 
@@ -69,16 +78,6 @@ void addCarToParking(PtrTParkingNode& Parking, car* newCar) {
     if (addedFlag == false) { cout << "El parque esta lleno" << endl; } // Cambiado == false
 }
 
-void initializeParking(PtrTParkingNode& Parking) {
-    static int MAX_SIZE = 25;
-    PtrTParkingNode newSpace;
-    for (int i = 0; i <= MAX_SIZE; i++)
-    {
-        newSpace = createParkingNode(i);
-        addParkingNode(Parking, newSpace);
-    }
-
-}
 void startSimulation() {
 
     while (true) {
