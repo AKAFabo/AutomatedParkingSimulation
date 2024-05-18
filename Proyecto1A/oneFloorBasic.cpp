@@ -20,6 +20,7 @@ PtrTBasicParkingNode createBasicParkingNode(int slotNumber)
     int returnCode = 0;
     return slot;
 }
+
 void initializeParking(PtrTBasicParkingNode& Parking) {
     static int MAX_SIZE = 25;
     PtrTBasicParkingNode newSpace;

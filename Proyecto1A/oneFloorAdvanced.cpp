@@ -20,6 +20,7 @@ PtrTAdvancedParkingNode createAdvancedParkingNode(int slotNumber)
     slot->Next = NULL;
     return slot;
 }
+
 void initializeParking(PtrTAdvancedParkingNode& Parking) {
     static int MAX_SIZE = 25;
     PtrTAdvancedParkingNode newSpace;
