@@ -64,7 +64,7 @@ int main() {
     ALLEGRO_FONT* fontSubtitle = al_load_font("pixel.ttf", 50, NULL);
     ALLEGRO_FONT* fonText = al_load_font("pixel.ttf", 40, NULL);
     ALLEGRO_BITMAP* background = al_load_bitmap("Recursos/MenuBackground.png");
-    ALLEGRO_BITMAP* car = al_load_bitmap("Recursos/Car1.png");
+    ALLEGRO_BITMAP* car = al_load_bitmap("Recursos/Car.png");
 
     // Se registran las fuentes de eventos en la cola de eventos
     al_register_event_source(eventQueue, al_get_timer_event_source(timer));
@@ -78,6 +78,7 @@ int main() {
     int mouseX = 0;
     int mouseY = 0;
     int pos = 1350;
+
 
     while (done) { //Cola de eventos
 
@@ -127,7 +128,9 @@ int main() {
             if (events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 
                 if (events.mouse.button & 1) {
-                    //main(); 
+                    al_destroy_display(display);
+                    oneFloorBasicSimulator();
+                    main(); 
                     done = false;
                 }
             }
@@ -140,7 +143,8 @@ int main() {
             if (events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 
                 if (events.mouse.button & 1) {
-                    //main(); 
+                    al_destroy_display(display);
+                    main(); 
                     done = false;
                 }
             }
@@ -154,7 +158,8 @@ int main() {
             if (events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 
                 if (events.mouse.button & 1) {
-                    //main(); 
+                    al_destroy_display(display);
+                    main(); 
                     done = false;
                 }
             }
@@ -167,6 +172,7 @@ int main() {
             if (events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 
                 if (events.mouse.button & 1) {
+                    al_destroy_display(display);
                     done = false;
                     break;
                 }

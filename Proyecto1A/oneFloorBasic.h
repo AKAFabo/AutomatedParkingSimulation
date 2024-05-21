@@ -14,11 +14,11 @@ typedef struct BasicParkingNode {
     BasicParkingNode* Next;
 }*PtrTBasicParkingNode;
 
-
 PtrTBasicParkingNode createBasicParkingNode(int slotNumber);
 void addParkingNode(PtrTBasicParkingNode& Parking, PtrTBasicParkingNode& newSpot);
-void carList(PtrTBasicParkingNode& Parking);
+int carList(PtrTBasicParkingNode& Parking);
 void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar);
 void initializeParking(PtrTBasicParkingNode& Parking);
-void oneFloorBasic();
+void oneFloorBasicSimulator();
+void randomFillparking();
 
