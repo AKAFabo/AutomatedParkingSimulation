@@ -21,7 +21,7 @@ typedef struct ParkingTowerNode {
 int generateRandom(int MIN, int MAX);
 PtrTParkingTowerNode createParkingTowerNode(int slotNumber);
 void addParkingNode(PtrTParkingTowerNode& Parking, PtrTParkingTowerNode& newSpot);
-void carList(PtrTParkingTowerNode& Parking);
+int carList(PtrTParkingTowerNode& Parking);
 void addCarToParking(PtrTParkingTowerNode& Parking, car* newCar);
 void initializeParking(PtrTParkingTowerNode& Parking);
-void parkingTower();
+void parkingTowerSimulator();

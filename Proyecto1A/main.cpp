@@ -65,20 +65,21 @@ int main() {
     ALLEGRO_FONT* fonText = al_load_font("pixel.ttf", 40, NULL);
     ALLEGRO_BITMAP* background = al_load_bitmap("Recursos/MenuBackground.png");
     ALLEGRO_BITMAP* car = al_load_bitmap("Recursos/Car.png");
+    ALLEGRO_BITMAP* building = al_load_bitmap("Recursos/Building.png");
+    ALLEGRO_BITMAP* cloud = al_load_bitmap("Recursos/Clouds.png");
 
     // Se registran las fuentes de eventos en la cola de eventos
     al_register_event_source(eventQueue, al_get_timer_event_source(timer));
     al_register_event_source(eventQueue, al_get_display_event_source(display));
     al_register_event_source(eventQueue, al_get_keyboard_event_source());
     al_register_event_source(eventQueue, al_get_mouse_event_source());
-
     al_start_timer(timer);
 
     bool done = true;
     int mouseX = 0;
     int mouseY = 0;
     int pos = 1350;
-
+    float cloudPos = 0;
 
     while (done) { //Cola de eventos
 
@@ -86,7 +87,7 @@ int main() {
         al_wait_for_event(eventQueue, &events);
 
         if (events.type == ALLEGRO_EVENT_MOUSE_AXES) { //Posicion del mouse
-            
+
             mouseX = events.mouse.x;
             mouseY = events.mouse.y;
             //cout << mouseX << " , " << mouseY << endl;
@@ -100,25 +101,34 @@ int main() {
                 if (pos <= -180) {
                     pos = 1850;
                 }
-                pos = pos - 3 ;
+                pos -= 3;
+
+                cloudPos += 0.2;
+                if (cloudPos >= 1280) {
+                    cloudPos = 0;
+                }
 
                 al_clear_to_color(al_map_rgb(0, 0, 0));
                 al_draw_bitmap(background, 0, 0, NULL);
                 al_draw_bitmap(car, pos, 620, NULL);
+                al_draw_bitmap(cloud, cloudPos, 0, NULL);
+                al_draw_bitmap(cloud, cloudPos - 1280, 0, NULL);
+                al_draw_bitmap(building, 526, 0, NULL);
                 al_draw_text(fontTitle, al_map_rgb(0, 0, 0), RX / 2, 20, ALLEGRO_ALIGN_CENTRE, "Bienvenido al Simulador de Parqueo Automatico");
                 al_draw_text(fontSubtitle, al_map_rgb(0, 0, 0), RX / 2, 90, ALLEGRO_ALIGN_CENTRE, "Porfavor seleccione la opcion de simulador:");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), RX / 2, 200, ALLEGRO_ALIGN_CENTRE, "1. Un piso en una sola planta");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), RX / 2, 300, ALLEGRO_ALIGN_CENTRE, "2. Dos Pisos en una sola planta");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), RX / 2, 400, ALLEGRO_ALIGN_CENTRE, "3. Torre de N Pisos con un ascensor central y dos estacionamientos");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), RX / 2, 500, ALLEGRO_ALIGN_CENTRE, "4. Salir");
-                al_draw_text(fontTitle, al_map_rgb(250, 150, 0), (RX / 2)+2, 22, ALLEGRO_ALIGN_CENTRE, "Bienvenido al Simulador de Parqueo Automatico");
-                al_draw_text(fontSubtitle, al_map_rgb(250, 150, 0), (RX / 2)+2, 92, ALLEGRO_ALIGN_CENTRE, "Porfavor seleccione la opcion de simulador:");
+                al_draw_text(fontTitle, al_map_rgb(250, 150, 0), (RX / 2) + 2, 22, ALLEGRO_ALIGN_CENTRE, "Bienvenido al Simulador de Parqueo Automatico");
+                al_draw_text(fontSubtitle, al_map_rgb(250, 150, 0), (RX / 2) + 2, 92, ALLEGRO_ALIGN_CENTRE, "Porfavor seleccione la opcion de simulador:");
                 al_draw_text(fonText, al_map_rgb(250, 150, 0), (RX / 2) + 2, 202, ALLEGRO_ALIGN_CENTRE, "1. Un piso en una sola planta");
                 al_draw_text(fonText, al_map_rgb(250, 150, 0), (RX / 2) + 2, 302, ALLEGRO_ALIGN_CENTRE, "2. Dos Pisos en una sola planta");
                 al_draw_text(fonText, al_map_rgb(250, 150, 0), (RX / 2) + 2, 402, ALLEGRO_ALIGN_CENTRE, "3. Torre de N Pisos con un ascensor central y dos estacionamientos");
                 al_draw_text(fonText, al_map_rgb(250, 150, 0), (RX / 2) + 2, 502, ALLEGRO_ALIGN_CENTRE, "4. Salir");
 
             }
+
         }
 
         //Simulador 1
@@ -130,7 +140,7 @@ int main() {
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
                     oneFloorBasicSimulator();
-                    main(); 
+                    main();
                     done = false;
                 }
             }
@@ -144,7 +154,7 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
-                    main(); 
+                    main();
                     done = false;
                 }
             }
@@ -159,7 +169,8 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
-                    main(); 
+                    parkingTowerSimulator();
+                    main();
                     done = false;
                 }
             }
@@ -180,7 +191,7 @@ int main() {
         }
 
         if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
-           
+
             switch (events.keyboard.keycode) {
 
             case ALLEGRO_KEY_ESCAPE:
@@ -223,4 +234,3 @@ int main() {
     */
 
 }
-

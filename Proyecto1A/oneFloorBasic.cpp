@@ -30,7 +30,7 @@ vector<pair<int, int>> carsList;
 int contCars;
 
 int exitCar = -1;
-int enterCar = -1;
+int addedCar = -1;
 int randomCar = -1;
 bool RunningThreadFlag = false;
 
@@ -39,7 +39,7 @@ bool RunningThreadFlag = false;
 int generateRandomB(int MIN, int MAX) {
 
     random_device rd;
-    mt19937 gen(rd());    
+    mt19937 gen(rd());
     uniform_int_distribution<> dis(MIN, MAX);
 
     int randomCode = dis(gen);
@@ -48,6 +48,7 @@ int generateRandomB(int MIN, int MAX) {
 }
 
 PtrTBasicParkingNode createBasicParkingNode(int slotNumber) {
+
     PtrTBasicParkingNode slot = new(BasicParkingNode);
 
     slot->parkingSpot = slotNumber;
@@ -72,8 +73,10 @@ void initializeParking(PtrTBasicParkingNode& Parking) {
 }
 
 void addParkingNode(PtrTBasicParkingNode& Parking, PtrTBasicParkingNode& newSpot) {
+
     newSpot->Next = Parking;
     Parking = newSpot;
+
 }
 
 int carList(PtrTBasicParkingNode& Parking) {
@@ -98,14 +101,14 @@ int carList(PtrTBasicParkingNode& Parking) {
 void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
 
     newCar->licensePlate = generateRandomB(100000, 999999);
-    newCar->weight = generateRandomB(1, 3);                    
+    newCar->weight = generateRandomB(1, 3);
     newCar->size = generateRandomB(1, 5);
 
     PtrTBasicParkingNode Aux;
     Aux = Parking;
 
     int cont = 0;
-    bool addedFlag = false; 
+    bool addedFlag = false;
 
     while (Aux != NULL) {
 
@@ -114,14 +117,14 @@ void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
             Aux->carInSpot.licensePlate = newCar->licensePlate;
             Aux->carInSpot.size = newCar->size;
             Aux->carInSpot.weight = newCar->weight;
-            Aux->isOccupied = true; 
+            Aux->isOccupied = true;
 
             int randomCode = generateRandomB(100000, 999999);
             Aux->returnCode = randomCode;
 
             cout << "Se agrego un carro en el espacio " << Aux->parkingSpot << " con el codigo de retorno " << Aux->returnCode << endl;
 
-            addedFlag = true; 
+            addedFlag = true;
             break;
         }
 
@@ -135,9 +138,9 @@ void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
 
 void randomFillparking() {
 
-    int randomChance = generateRandomB(7, 13);
+    int randomChance = generateRandomB(7, 12);
     for (int i = 0; i <= randomChance; i++) {
-           addCarToParking(Parking, new(car));
+        addCarToParking(Parking, new(car));
     }
 }
 
@@ -153,9 +156,9 @@ pair<int, int> popElement() {
 
     while (true) {
 
-        pos = generateRandomB(0, 20);
-        
-        PtrTBasicParkingNode Aux = Parking; 
+        pos = generateRandomB(0, carsList.size());
+
+        PtrTBasicParkingNode Aux = Parking;
         int cont = 0;
 
         for (int i = 0; i < carsList.size(); i++) {
@@ -165,7 +168,7 @@ pair<int, int> popElement() {
                 popedPair = carsList[i];
                 carsList.erase(carsList.begin() + i);
             }
-        }    
+        }
 
         while (Aux != NULL && cont < pos) {
 
@@ -174,11 +177,11 @@ pair<int, int> popElement() {
         }
 
         if (Aux != NULL && cont == pos) {
-      
+
             if (Aux->isOccupied == true) {
 
                 cout << "Se elimino un carro en el espacio " << Aux->parkingSpot << " con el codigo de retorno " << Aux->returnCode << endl;
-                
+
                 Aux->isOccupied = false;
                 Aux->returnCode = NULL;
                 break;
@@ -187,7 +190,7 @@ pair<int, int> popElement() {
     }
 
     contCars = carList(Parking);
-    return popedPair;    
+    return popedPair;
 }
 
 void copyBitmap(ALLEGRO_BITMAP* dest[], ALLEGRO_BITMAP* src[], int len) {
@@ -224,7 +227,7 @@ void* parkingExitThread(ALLEGRO_THREAD* thr, void* arg) {
         return NULL;
     }
 
-    const int RX = 580;
+    const int RX = 483;
     const int RY = 640;
 
     ALLEGRO_DISPLAY* display;
@@ -258,8 +261,6 @@ void* parkingExitThread(ALLEGRO_THREAD* thr, void* arg) {
 
     bool done = true;
 
-    int random = 0;
-
     int carMovementYPos = 0;
     int carMovementXPos = 0;
 
@@ -275,7 +276,7 @@ void* parkingExitThread(ALLEGRO_THREAD* thr, void* arg) {
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_draw_bitmap(ParkingSlot, 0, 0, NULL);
 
-            for (auto it = carsList.begin(); it != carsList.end(); it++){
+            for (auto it = carsList.begin(); it != carsList.end(); it++) {
 
                 al_draw_bitmap(Cars[it->second], carPos[it->first][1], carPos[it->first][0], NULL);
             }
@@ -302,7 +303,7 @@ void* parkingExitThread(ALLEGRO_THREAD* thr, void* arg) {
                         al_draw_bitmap(Cars[popedPair.second], carMovementXPos, carMovementYPos, NULL);
                     }
 
-                    if (carMovementXPos < -80 ) {
+                    if (carMovementXPos < -80) {
                         al_destroy_display(display);
                         done = false;
                         exitCar = popedPair.second;
@@ -370,7 +371,7 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
         return NULL;
     }
 
-    const int RX = 580;
+    const int RX = 483;
     const int RY = 640;
 
     ALLEGRO_DISPLAY* display;
@@ -404,10 +405,7 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
 
     //Varibles necesarias
     bool done = true;
-    bool agregado = false;
-    int agregago = 0;
-
-    int random = 0;
+    bool added = false;
 
     int carMovementYPos = 0;
     int carMovementXPos = 0;
@@ -439,20 +437,20 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
 
                         addCarToParking(Parking, new(car));
                         enterPair = make_pair(i, randomCar);
-                        agregado = true;
-                        agregado = i;
+                        added = true;
+                        addedCar = 1;
                         break;
 
                     }
                 }
             }
 
-            if (agregado == false) {
+            if (added == false) {
 
                 addCarToParking(Parking, new(car));
                 enterPair = make_pair(carsList.size(), randomCar);
-                agregado = true;
-                agregado = carsList.size();
+                added = true;
+                addedCar = 1;
 
             }
 
@@ -475,7 +473,6 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
                             al_destroy_display(display);
                             done = false;
                             contCars = carList(Parking);
-                            enterCar = 1;
                             return NULL;
                         }
 
@@ -491,7 +488,7 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
 
                     }
                 }
-                
+
                 else {
 
                     if (carMovementXPos == 0) {
@@ -509,7 +506,6 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
                             al_destroy_display(display);
                             done = false;
                             contCars = carList(Parking);
-                            enterCar = 1;
                             return NULL;
                         }
 
@@ -546,7 +542,6 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
                             al_destroy_display(display);
                             done = false;
                             contCars = carList(Parking);
-                            enterCar = 1;
                             return NULL;
                         }
 
@@ -562,7 +557,7 @@ void* parkingEnterThread(ALLEGRO_THREAD* thr, void* arg) {
 
                     }
                 }
-               
+
                 else {
 
                     if (carMovementXPos == 0) {
@@ -648,8 +643,10 @@ void oneFloorBasicSimulator() {
     ALLEGRO_FONT* fontTitle = al_load_font("pixel.ttf", 60, NULL);
     ALLEGRO_FONT* fontSubtitle = al_load_font("pixel.ttf", 50, NULL);
     ALLEGRO_FONT* fonText = al_load_font("pixel.ttf", 40, NULL);
-    ALLEGRO_BITMAP* background = al_load_bitmap("Recursos/MenuBackground.png");;
-    
+    ALLEGRO_BITMAP* background = al_load_bitmap("Recursos/MenuBackground.png");
+    ALLEGRO_BITMAP* building = al_load_bitmap("Recursos/Building.png");
+    ALLEGRO_BITMAP* cloud = al_load_bitmap("Recursos/Clouds.png");
+
     ALLEGRO_BITMAP* character1[13];
     character1[0] = al_load_bitmap("Recursos/Characters/Character1_walk0.png");
     character1[1] = al_load_bitmap("Recursos/Characters/Character1_walk1.png");
@@ -664,7 +661,7 @@ void oneFloorBasicSimulator() {
     character1[10] = al_load_bitmap("Recursos/Characters/Character1_wait_2.png");
     character1[11] = al_load_bitmap("Recursos/Characters/Character1_wait_3.png");
     character1[12] = al_load_bitmap("Recursos/Characters/Character1_wait_4.png");
-    
+
     ALLEGRO_BITMAP* character2[13];
     character2[0] = al_load_bitmap("Recursos/Characters/Character2_walk0.png");
     character2[1] = al_load_bitmap("Recursos/Characters/Character2_walk1.png");
@@ -679,7 +676,7 @@ void oneFloorBasicSimulator() {
     character2[10] = al_load_bitmap("Recursos/Characters/Character2_wait_2.png");
     character2[11] = al_load_bitmap("Recursos/Characters/Character2_wait_3.png");
     character2[12] = al_load_bitmap("Recursos/Characters/Character2_wait_4.png");
-    
+
     ALLEGRO_BITMAP* sideCars[4];
     sideCars[0] = al_load_bitmap("Recursos/Cars/CarSide01.png");
     sideCars[1] = al_load_bitmap("Recursos/Cars/CarSide02.png");
@@ -706,13 +703,13 @@ void oneFloorBasicSimulator() {
     int characterFrameWalk = 0;
     int characterFrameWait = 8;
 
-    int characterPos = -180; //Cambiar
-    //int characterPos = 580;
+    int characterPos = -180;
     int characterYPos = 495;
 
     int carPos = -180;
     int carYPos = 560;
     int carExitPos = 620;
+    float cloudPos = 0;
 
     ALLEGRO_THREAD* thread = NULL;
     ALLEGRO_BITMAP* character[13];
@@ -733,8 +730,17 @@ void oneFloorBasicSimulator() {
 
             if (events.timer.source == timer) {
 
+
+                cloudPos += 0.2;
+                if (cloudPos >= 1280) {
+                    cloudPos = 0;
+                }
+
                 al_clear_to_color(al_map_rgb(0, 0, 0));
                 al_draw_bitmap(background, 0, 0, NULL);
+                al_draw_bitmap(cloud, cloudPos, 0, NULL);
+                al_draw_bitmap(cloud, cloudPos - 1280, 0, NULL);
+                al_draw_bitmap(building, 526, 0, NULL);
                 al_draw_text(fontTitle, al_map_rgb(0, 0, 0), RX / 2, 20, ALLEGRO_ALIGN_CENTRE, "Simulador de Parqueo Automatico");
                 al_draw_text(fontSubtitle, al_map_rgb(0, 0, 0), RX / 2, 90, ALLEGRO_ALIGN_CENTRE, "Un piso en una sola planta");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), 50, 660, ALLEGRO_ALIGN_CENTRE, "Salir");
@@ -826,7 +832,7 @@ void oneFloorBasicSimulator() {
                         }
                     }
 
-                    if (enterCar != -1 and RunningThreadFlag != false) {
+                    if (addedCar != -1 and RunningThreadFlag != false) {
 
                         if (characterPos > 1400) {
 
@@ -834,7 +840,7 @@ void oneFloorBasicSimulator() {
 
                             cout << "Se guardo el vehiculo con exito" << endl;
 
-                            enterCar = -1;
+                            addedCar = -1;
                             RunningThreadFlag = false;
                             al_destroy_thread(thread);
                             thread = NULL;
@@ -847,7 +853,7 @@ void oneFloorBasicSimulator() {
 
                         else {
 
-                            if (characterPos == -180) { characterPos = 660; }
+                            if (characterPos == -180) { characterPos = 790; }
 
                             if (randomCharacter == 1) { copyBitmap(character, character1, 13); }
                             else { copyBitmap(character, character2, 13); }
@@ -910,6 +916,8 @@ void oneFloorBasicSimulator() {
 
         al_flip_display();
     }
- 
+
 }
+
+
 
