@@ -20,7 +20,7 @@ typedef struct AdvancedParkingNode {
 
 PtrTAdvancedParkingNode createAdvancedParkingNode(int slotNumber);
 void addParkingNode(PtrTAdvancedParkingNode& Parking, PtrTAdvancedParkingNode& newSpot);
-void carList(PtrTAdvancedParkingNode& Parking);
+int carList(PtrTAdvancedParkingNode& Parking);
 void addCarToParking(PtrTAdvancedParkingNode& Parking, car* newCar);
 void initializeParking(PtrTAdvancedParkingNode& Parking);
-void oneFloorAdvanced();
+void parkingAdvancedSimulator();

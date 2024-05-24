@@ -27,8 +27,8 @@ using namespace std;
 PtrTParkingTowerNode newSpace;
 PtrTParkingTowerNode Parking;
 
-int carPosPT[2][2] = {{10, 20} ,{215, 20}};
-int listPosPT[20] = {0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9};
+int carPosPT[2][2] = { {10, 20} ,{215, 20} };
+int listPosPT[20] = { 0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9 };
 vector<pair<int, int>> carsListPT;
 int contCarsPT;
 
@@ -42,7 +42,7 @@ bool RunningThreadFlagPT = false;
 int generateRandomT(int MIN, int MAX) {
 
     random_device rd;
-    mt19937 gen(rd());    
+    mt19937 gen(rd());
     uniform_int_distribution<> dis(MIN, MAX);
 
     int randomCode = dis(gen);
@@ -103,10 +103,10 @@ int carList(PtrTParkingTowerNode& Parking) {
     return cont;
 }
 
-void addCarToParking(PtrTParkingTowerNode& Parking, car* newCar) { 
+void addCarToParking(PtrTParkingTowerNode& Parking, car* newCar) {
 
     newCar->licensePlate = generateRandomT(100000, 999999);
-    newCar->weight = generateRandomT(1, 3);                    
+    newCar->weight = generateRandomT(1, 3);
     newCar->size = generateRandomT(1, 5);
 
     PtrTParkingTowerNode Aux;
@@ -116,12 +116,12 @@ void addCarToParking(PtrTParkingTowerNode& Parking, car* newCar) {
 
     while (Aux != NULL) {
 
-        if (Aux->isRightOccupied == false) { 
+        if (Aux->isRightOccupied == false) {
 
             Aux->rightCar.licensePlate = newCar->licensePlate;
             Aux->rightCar.size = newCar->size;
             Aux->rightCar.weight = newCar->weight;
-            Aux->isRightOccupied = true; 
+            Aux->isRightOccupied = true;
 
             int randomCode = generateRandomT(100000, 999999);
 
@@ -129,24 +129,24 @@ void addCarToParking(PtrTParkingTowerNode& Parking, car* newCar) {
 
             cout << "Se agrego un carro en el piso " << Aux->parkingSpot << " superior, con el codigo de retorno " << randomCode << endl;
 
-            addedFlag = true; 
+            addedFlag = true;
 
             break;
         }
 
-        else if (Aux->isLeftOccupied == false) {  
+        else if (Aux->isLeftOccupied == false) {
 
             Aux->leftCar.licensePlate = newCar->licensePlate;
             Aux->leftCar.size = newCar->size;
             Aux->leftCar.weight = newCar->weight;
-            Aux->isLeftOccupied = true; 
+            Aux->isLeftOccupied = true;
 
             int randomCode = generateRandomT(100000, 999999);
             Aux->leftReturnCode = randomCode;
 
             cout << "Se agrego un carro en el piso " << Aux->parkingSpot << " inferior, con el codigo de retorno " << randomCode << endl;
 
-            addedFlag = true; 
+            addedFlag = true;
 
             break;
         }
@@ -188,7 +188,7 @@ void copyBitmapPT(ALLEGRO_BITMAP* dest[], ALLEGRO_BITMAP* src[], int len) {
 
 auto comparePT = [](const pair<int, int>& a, const pair<int, int>& b) {
     return a.first < b.first;
-};
+    };
 
 pair<int, int> popElementPT() {
 
@@ -200,7 +200,7 @@ pair<int, int> popElementPT() {
 
     if (contCarsPT == 0) {
         contCarsPT = carList(Parking);
-        return {0,0};
+        return { 0,0 };
     }
 
     while (true) {
@@ -220,14 +220,14 @@ pair<int, int> popElementPT() {
         for (int i = 0; i < pos / 2; ++i) {
 
             if (Aux != nullptr) {
-                Aux = Aux->Next; 
+                Aux = Aux->Next;
             }
             else {
-                break; 
+                break;
             }
         }
 
-        if (Aux != NULL ) {
+        if (Aux != NULL) {
 
             if (Aux->isLeftOccupied == true and pos % 2 == 0) {
 
@@ -322,7 +322,7 @@ void* parkingExitThreadPT(ALLEGRO_THREAD* thr, void* arg) {
             if (popedPair.first == 0) {
                 Aux = Parking;
             }
-            
+
             else {
 
                 Aux = Parking;

@@ -65,7 +65,7 @@ void initializeParking(PtrTBasicParkingNode& Parking) {
     static int MAX_SIZE = 20;
     PtrTBasicParkingNode newSpace;
 
-    for (int i = 0; i <= MAX_SIZE; i++) {
+    for (int i = 0; i < MAX_SIZE; i++) {
 
         newSpace = createBasicParkingNode(i);
         addParkingNode(Parking, newSpace);
@@ -132,7 +132,7 @@ void addCarToParking(PtrTBasicParkingNode& Parking, car* newCar) {
         cont++;
     }
 
-    if (addedFlag == false) { cout << "El parque esta lleno" << endl; } // Cambiado == false
+    if (addedFlag == false) { cout << "El parqueo esta lleno" << endl; } // Cambiado == false
 
 }
 

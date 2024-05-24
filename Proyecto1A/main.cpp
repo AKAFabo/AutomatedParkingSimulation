@@ -154,6 +154,7 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
+                    parkingAdvancedSimulator();
                     main();
                     done = false;
                 }
@@ -205,32 +206,4 @@ int main() {
 
         al_flip_display();
     }
-
-    /*
-    char opt;
-
-    while (true) {
-
-        cin >> opt;
-
-        switch (opt) {
-
-        case '1': //One floor basic parking
-            oneFloorBasic();
-            break;
-
-        case '2': //One floor advanced parking
-            oneFloorAdvanced();
-            break;
-
-        case '3': //Parking Tower
-            parkingTower();
-            break;
-
-        default:
-            cout << "Invalid choice. Try again." << endl;
-        }
-    }
-    */
-
 }
