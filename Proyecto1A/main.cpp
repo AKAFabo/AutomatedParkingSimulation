@@ -139,6 +139,10 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
+                    system("cls");
+                    cout << "=========================================" << endl;
+                    cout << "Simulador de Un piso en una sola planta" << endl;
+                    cout << "=========================================" << endl << endl;
                     oneFloorBasicSimulator();
                     main();
                     done = false;
@@ -154,6 +158,10 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
+                    system("cls");
+                    cout << "=========================================" << endl;
+                    cout << "Simulador de Dos Pisos en una sola planta" << endl;
+                    cout << "=========================================" << endl << endl;
                     parkingAdvancedSimulator();
                     main();
                     done = false;
@@ -170,6 +178,10 @@ int main() {
 
                 if (events.mouse.button & 1) {
                     al_destroy_display(display);
+                    system("cls");
+                    cout << "============================================================================" << endl;
+                    cout << "Simulador de Torre de N Pisos con un ascensor central y dos estacionamientos" << endl;
+                    cout << "============================================================================" << endl << endl;
                     parkingTowerSimulator();
                     main();
                     done = false;

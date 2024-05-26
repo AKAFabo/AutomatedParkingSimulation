@@ -748,10 +748,10 @@ void parkingAdvancedSimulator() {
                 al_draw_bitmap(cloud, cloudPos - 1280, 0, NULL);
                 al_draw_bitmap(building, 526, 0, NULL);
                 al_draw_text(fontTitle, al_map_rgb(0, 0, 0), RX / 2, 20, ALLEGRO_ALIGN_CENTRE, "Simulador de Parqueo Automatico");
-                al_draw_text(fontSubtitle, al_map_rgb(0, 0, 0), RX / 2, 90, ALLEGRO_ALIGN_CENTRE, "Un piso en una sola planta");
+                al_draw_text(fontSubtitle, al_map_rgb(0, 0, 0), RX / 2, 90, ALLEGRO_ALIGN_CENTRE, "Dos Pisos en una sola planta");
                 al_draw_text(fonText, al_map_rgb(0, 0, 0), 50, 660, ALLEGRO_ALIGN_CENTRE, "Salir");
                 al_draw_text(fontTitle, al_map_rgb(250, 150, 0), (RX / 2) + 2, 22, ALLEGRO_ALIGN_CENTRE, "Simulador de Parqueo Automatico");
-                al_draw_text(fontSubtitle, al_map_rgb(250, 150, 0), (RX / 2) + 2, 92, ALLEGRO_ALIGN_CENTRE, "Un piso en una sola planta");
+                al_draw_text(fontSubtitle, al_map_rgb(250, 150, 0), (RX / 2) + 2, 92, ALLEGRO_ALIGN_CENTRE, "Dos Pisos en una sola planta");
                 al_draw_text(fonText, al_map_rgb(250, 150, 0), 52, 662, ALLEGRO_ALIGN_CENTRE, "Salir");
 
                 if (actionRandom == 0) {
